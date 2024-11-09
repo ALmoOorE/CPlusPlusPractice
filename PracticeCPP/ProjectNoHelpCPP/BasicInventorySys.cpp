@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <algorithm>
 
 using namespace std;
 
@@ -61,6 +61,17 @@ class ManagementSys {
                 cout<<"--------------------------------------"<<endl;
             }
         }
+        void removeProduct(int id){
+            auto it = remove_if(products.begin(), products.end(),
+            [id](const Product& product){return product.get_id() == id; });
+
+            if (it != products.end()){
+                products.erase(it, products.end());
+                cout<< "Product with ID: "<< id << " has been removed. \n";
+            }else {
+                cout<< "Product with ID: "<< id << "not found. \n";
+            }
+        }
 
 };
 
@@ -76,7 +87,11 @@ inv.addProduct(prod1);
 inv.addProduct(prod2);
 inv.addProduct(prod3);
 
+//display inventory
 inv.viewInventory();
+
+//testing remove 
+inv.removeProduct(00002);
 
 
 
